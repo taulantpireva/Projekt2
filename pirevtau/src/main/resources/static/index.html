@@ -6,34 +6,37 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
+    
     <script src="script.js" async></script>
 </head>
 
 <body>
 
-    <div class="container-fluid">
-        <h1>Footwear Classification</h1>
-        <p>DeepJavaLibrary (DJL) Demonstration by mosa</p>
-
-        <form>
-            <div class="form-group">
-                <label for="exampleFormControlFile1">Bitte Bild hochladen (jpeg, png)</label>
+    <div class="container-fluid p-3">
+        <nav aria-label="breadcrumb ">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                    <h2>Footwear Classification</h2>
+                </li>
+            </ol>
+        </nav>
+        <div class="card" style="width: 18rem;">
+            <div id="answerPart">
+                <p><img id="preview" width="100%" src="default.jpg" alt="preview" /></p>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title" id="previewText">No image uploaded</h5>
+                <p class="card-text">Bitte Bild hochladen (jpeg, png)</p>
                 <input type="file" accept="image/png, image/jpeg" class="form-control-file" id="image" name="image"
                     onchange="checkFiles(this.files);">
             </div>
-        </form>
-
-        <div id="answerPart" style="visibility: hidden;">
-            <p><b>Answer:</b>
-            <div id="answer"></div>
-            </p>
-
-            <p id="previewPart"><b>Analyzed Image:</b>
-            <p><img id="preview" width="300" src="#" alt="preview" /></p>
+        </div>
+        <div id="answerPart2" style="visibility: hidden;">
+            <p>  <div id="answer"></div>
             </p>
         </div>
     </div>
-
 
 </body>
 

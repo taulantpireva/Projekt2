@@ -12,12 +12,16 @@ function checkFiles(files) {
         return;
     }
 
-    answerPart.style.visibility = "visible";
+    answerPart2.style.visibility = "visible";
     const file = files[0];
 
     // Preview
     if (file) {
-        preview.src = URL.createObjectURL(files[0])
+        preview.src = URL.createObjectURL(files[0]);
+       previewText.textContent = "Analyzed Image";
+    } else {
+        preview.src = "default.jpg";
+        previewText.textContent = "No picture uploaded";
     }
 
     // Upload
@@ -28,21 +32,20 @@ function checkFiles(files) {
 
     fetch('/analyze', {
         method: 'POST',
-        headers: {
-        },
+        headers: {},
         body: formData
-    }).then(
-        response => {
-            console.log(response)
-            response.text().then(function (text) {
-                answer.innerHTML = text;
-            });
+    }).then(response => response.json())  // Parse JSON response
+      .then(data => {
+          console.log(data);
+          const highestProbability = data.reduce((max, item) => item.probability > max.probability ? item : max);
+          const formattedResult = {
+              className: highestProbability.className,
+              percentage: (highestProbability.probability * 100).toLocaleString(undefined, { minimumFractionDigits: 6, maximumFractionDigits: 6 }) + "%"
+          };
 
-        }
-    ).then(
-        success => console.log(success)
-    ).catch(
-        error => console.log(error)
-    );
+          // Display the highest probability result
+          answer.innerHTML = `Answer: <strong>${formattedResult.className}</strong>`;
+      })
+      .catch(error => console.log(error));
 
 }
